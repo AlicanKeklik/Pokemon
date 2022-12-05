@@ -1,7 +1,8 @@
-package com.alicankeklik.pokemon
+package com.alicankeklik.pokemon.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.alicankeklik.pokemon.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
