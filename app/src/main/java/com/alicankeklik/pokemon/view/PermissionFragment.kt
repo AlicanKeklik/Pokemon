@@ -11,11 +11,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.alicankeklik.pokemon.adapter.PokemonListAdapter
 import com.alicankeklik.pokemon.databinding.FragmentPermissionBinding
+import com.alicankeklik.pokemon.viewmodel.PokemonListViewModel
 
 
 class PermissionFragment : Fragment() {
     private lateinit var binding: FragmentPermissionBinding
+    private lateinit var viewModel: PokemonListViewModel
+    private   var pokemonListAdapter = PokemonListAdapter(arrayListOf())
     private var TAG: String = "PermissionFragment"
     private val handler = Handler()
 
@@ -54,10 +60,18 @@ class PermissionFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel = ViewModelProvider(this).get(PokemonListViewModel::class.java)
+        observeLiveData()
+        binding.pokemonList.layoutManager = LinearLayoutManager(requireContext())
+        binding.pokemonList.adapter = pokemonListAdapter
         if (!Settings.canDrawOverlays(requireContext())) {
             binding.overlayPermissonButton.visibility = View.VISIBLE
+            binding.pokemonList.visibility = View.GONE
         } else {
             binding.overlayPermissonButton.visibility = View.GONE
+            binding.pokemonList.visibility = View.VISIBLE
+            viewModel.loadData()
+
         }
         binding.overlayPermissonButton.setOnClickListener {
             requestpermission()
@@ -71,12 +85,15 @@ class PermissionFragment : Fragment() {
         when {
             Settings.canDrawOverlays(requireContext()) -> {
                 binding.overlayPermissonButton.visibility = View.GONE
+                binding.pokemonList.visibility = View.VISIBLE
+                viewModel.loadData()
                 Log.e(TAG, "second fragment can work")
             }
             else -> {
                 // You can directly ask for the permission.
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     binding.overlayPermissonButton.visibility = View.VISIBLE
+                    binding.pokemonList.visibility = View.GONE
                     val myIntent = Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION)
                     startActivity(myIntent)
                     handler.postDelayed(checkOverlaySetting, 1000);
@@ -85,6 +102,17 @@ class PermissionFragment : Fragment() {
             }
         }
 
+
+    }
+
+    fun observeLiveData(){
+        viewModel.pokemons.observe(viewLifecycleOwner,{pokemons ->
+            pokemons?.let {
+                binding.pokemonList.visibility = View.VISIBLE
+                pokemonListAdapter.updatePokemonList(pokemons)
+            }
+
+        })
 
     }
 
