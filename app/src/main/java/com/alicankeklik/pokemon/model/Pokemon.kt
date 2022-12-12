@@ -1,5 +1,8 @@
 package com.alicankeklik.pokemon.model
 
+import com.google.gson.annotations.SerializedName
+
+
 data class Pokemon(
-    val pokemonName:String?,
-    val pokemonDetailUrl:String?)
+    @SerializedName("name")  val pokemonName:String?,
+    @SerializedName("url") val pokemonDetailUrl:String?)
