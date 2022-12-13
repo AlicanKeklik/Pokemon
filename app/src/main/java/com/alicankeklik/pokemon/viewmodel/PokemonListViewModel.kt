@@ -1,6 +1,7 @@
 package com.alicankeklik.pokemon.viewmodel
 
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.alicankeklik.pokemon.model.Pokemon
@@ -13,6 +14,7 @@ import io.reactivex.schedulers.Schedulers
 
 class PokemonListViewModel :ViewModel() {
     val pokemons = MutableLiveData<List<Pokemon>>()
+    val error = MutableLiveData<Boolean>()
 
     private val pokemonAPIService = PokemonAPIService()
     private val disposable = CompositeDisposable()
@@ -41,11 +43,13 @@ class PokemonListViewModel :ViewModel() {
 
 
                     override fun onError(e: Throwable) {
+                        error.value = true
             Log.e("deneme","hattaa")
                     }
 
                     override fun onSuccess(t: PokemonList) {
                         pokemons.value = t.results
+                        error.value = false
                     }
 
                 })

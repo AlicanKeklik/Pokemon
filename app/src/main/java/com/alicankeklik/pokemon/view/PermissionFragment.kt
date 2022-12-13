@@ -10,6 +10,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -113,7 +114,13 @@ class PermissionFragment : Fragment() {
             }
 
         })
+      viewModel.error.observe(viewLifecycleOwner,{
+          it?.let {
+              if (it)
+                  Toast.makeText(context,"No Network Connection Please Check Your Connection",Toast.LENGTH_LONG).show()
+          }
 
+      })
     }
 
 
