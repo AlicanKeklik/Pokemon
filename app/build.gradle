@@ -1,6 +1,11 @@
 plugins {
     id 'com.android.application'
-    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'kotlin-android-extensions'
+    id "androidx.navigation.safeargs.kotlin"
+
+
 }
 
 android {
@@ -34,12 +39,23 @@ android {
         viewBinding = true
         dataBinding = true
     }
+    sourceSets{
+        main {
+            kotlin {
+                srcDirs += 'build/generated/source/navigation-args/'
+            }
+        }
+    }
+
 }
 
 dependencies {
     def nav_version = "2.5.3"
     def activity_version = "1.6.1"
     def fragment_version = "1.5.4"
+
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
 
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'

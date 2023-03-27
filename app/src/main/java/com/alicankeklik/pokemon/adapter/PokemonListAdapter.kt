@@ -3,12 +3,15 @@ package com.alicankeklik.pokemon.adapter
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.alicankeklik.pokemon.databinding.ItemPokemonBinding
 import com.alicankeklik.pokemon.model.Pokemon
+import com.alicankeklik.pokemon.view.PermissionFragmentDirections
 
-class PokemonListAdapter(val pokemonList: ArrayList<Pokemon>): RecyclerView.Adapter<PokemonListAdapter.PokemonViewHolder>() {
+class PokemonListAdapter(val pokemonList: ArrayList<Pokemon> ): RecyclerView.Adapter<PokemonListAdapter.PokemonViewHolder>() {
     val TAG = "PokemonListAdapter"
+
     class PokemonViewHolder(var binding: ItemPokemonBinding) :RecyclerView.ViewHolder(binding.root) {
 
     }
@@ -21,6 +24,11 @@ class PokemonListAdapter(val pokemonList: ArrayList<Pokemon>): RecyclerView.Adap
 
     override fun onBindViewHolder(holder: PokemonViewHolder, position: Int) {
         holder.binding.name.text = pokemonList.get(position).pokemonName
+
+        holder.binding.root.setOnClickListener {
+            val action = PermissionFragmentDirections.actionPermissionFragmentToListScreenFragment()
+            Navigation.findNavController(it).navigate(action)
+        }
     }
 
     override fun getItemCount(): Int {
