@@ -48,7 +48,7 @@ class PokemonListViewModel :ViewModel() {
                     }
 
                     override fun onSuccess(t: PokemonList) {
-                        pokemons.value = t.results
+                        pokemons.value = t.result
                         error.value = false
                     }
 

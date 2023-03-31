@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_listScreenFragment_to_pokemonDetailedFragment"
             app:destination="@id/pokemonDetailedFragment" />
+        <argument
+            android:name="pokemonDetailUrl"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/pokemonDetailedFragment"

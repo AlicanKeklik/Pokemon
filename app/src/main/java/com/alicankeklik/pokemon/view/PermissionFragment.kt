@@ -117,6 +117,7 @@ class PermissionFragment : Fragment()  {
             }
 
         })
+
       viewModel.error.observe(viewLifecycleOwner,{
           it?.let {
               if (it)

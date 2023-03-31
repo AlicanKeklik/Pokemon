@@ -26,7 +26,7 @@ class PokemonListAdapter(val pokemonList: ArrayList<Pokemon> ): RecyclerView.Ada
         holder.binding.name.text = pokemonList.get(position).pokemonName
 
         holder.binding.root.setOnClickListener {
-            val action = PermissionFragmentDirections.actionPermissionFragmentToListScreenFragment()
+            val action = PermissionFragmentDirections.actionPermissionFragmentToListScreenFragment((position +1).toString())
             Navigation.findNavController(it).navigate(action)
         }
     }
