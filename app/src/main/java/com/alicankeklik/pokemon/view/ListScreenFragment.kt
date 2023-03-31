@@ -55,7 +55,7 @@ class ListScreenFragment : Fragment() {
                 binding.textView.text = it.pokemonDetailName
                 binding.textView2.text = it.pokemonDetailHeight
                 binding.textView3.text = it.pokemonDetailWeight
-                Picasso.with(context).load(it.pokemonDetailImgUrl?.url).into(binding.imageView)
+                Picasso.with(context).load(it.pokemonDetailImgUrl?.url.toString()).resize(400,400).centerInside().into(binding.imageView)
                 Log.e("Alican","pokemon name :"+it.pokemonDetailName.toString())
             }
 
