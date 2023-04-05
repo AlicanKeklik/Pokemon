@@ -63,6 +63,8 @@ class ListScreenFragment : Fragment() {
         viewModel.pokemons.observe(viewLifecycleOwner,{
             testView.overlayname.text = it.pokemonDetailName
             Picasso.with(context).load(it.pokemonDetailImgUrl?.url.toString()).resize(400,400).centerInside().into(testView.viewFront)
+            Picasso.with(context).load(it.pokemonDetailImgUrl?.urlBack.toString()).resize(400,400).centerInside().into(testView.viewBack)
+
         })
         val mParams: WindowManager.LayoutParams? = WindowManager.LayoutParams(
             400,
