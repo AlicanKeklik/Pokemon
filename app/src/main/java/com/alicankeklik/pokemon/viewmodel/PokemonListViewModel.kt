@@ -20,15 +20,7 @@ class PokemonListViewModel :ViewModel() {
     private val disposable = CompositeDisposable()
 
     fun loadData(){
-      /*  val pokemon = Pokemon("deneme1","asdsdaa")
-        val pokemon2 = Pokemon("deneme2","asdaa")
-        val pokemon3 = Pokemon("deneme2","asdaa")
-
-        val pokemonList = arrayListOf<Pokemon>(pokemon,pokemon2,pokemon3)
-
-        pokemons.value = pokemonList*/
      getDataFromAPI()
-
     }
 
 

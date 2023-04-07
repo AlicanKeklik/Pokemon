@@ -77,7 +77,6 @@ class PermissionFragment : Fragment()  {
         }
         binding.overlayPermissonButton.setOnClickListener {
             requestpermission()
-            Log.e(TAG, "buton")
         }
 
 

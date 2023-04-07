@@ -18,18 +18,4 @@ fun getData(): Single<PokemonList> {
     return api.getPokemons()
 }
 
-
-
-
-   /* private val BASE_URL = "https://pokeapi.co/"
-    private val api = Retrofit.Builder()
-        .baseUrl(BASE_URL)
-        .addConverterFactory(GsonConverterFactory.create())
-        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-        .build()
-        .create(CountryAPI::class.java)
-
-    fun getData() : Single<List<Country>> {
-        return api.getCountries()
-    }*/
 }

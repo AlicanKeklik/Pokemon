@@ -19,21 +19,12 @@ class PokemonViewModel () :  ViewModel() {
     private val disposable = CompositeDisposable()
 
     fun loadData( url: String){
-        /*  val pokemon = Pokemon("deneme1","asdsdaa")
-          val pokemon2 = Pokemon("deneme2","asdaa")
-          val pokemon3 = Pokemon("deneme2","asdaa")
-
-          val pokemonList = arrayListOf<Pokemon>(pokemon,pokemon2,pokemon3)
-
-          pokemons.value = pokemonList*/
         getDataFromAPI(url)
 
     }
 
 
     private fun getDataFromAPI(url : String) {
-        // countryLoading.value = true
-
         disposable.add(
             pokemonDetailAPI.getData(url)
                 .subscribeOn(Schedulers.newThread())
@@ -50,13 +41,6 @@ class PokemonViewModel () :  ViewModel() {
                         var pokemonDetail = PokemonDetail(t.pokemonDetailName.toString(),t.pokemonDetailImgUrl,
                             t.pokemonDetailHeight.toString(),t.pokemonDetailWeight.toString())
                             pokemons.value = pokemonDetail
-//                        pokemons.value?.pokemonDetailHeight = t.pokemonDetailHeight.toString()
-//                        pokemons.value?.pokemonDetailImgUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png"
-//                        pokemons.value?.pokemonDetailName = t.pokemonDetailName.toString()
-//                        pokemons.value?.pokemonDetailWeight = t.pokemonDetailWeight.toString()
-//                   Log.e("Alican","pokemon name1 :"+t.pokemonDetailName.toString())
-
-
                         error.value = false
                     }
 
