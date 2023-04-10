@@ -1,10 +1,8 @@
 package com.alicankeklik.pokemon.view
 
 
-import android.content.Context
-import android.graphics.PixelFormat
+
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +10,6 @@ import android.view.WindowManager
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.alicankeklik.pokemon.R
 import com.alicankeklik.pokemon.databinding.FragmentListScreenBinding
 import com.alicankeklik.pokemon.viewmodel.PokemonViewModel
 import com.squareup.picasso.Picasso
@@ -23,8 +20,6 @@ class ListScreenFragment : Fragment() {
    private lateinit var  binding: FragmentListScreenBinding
    private lateinit var viewModel: PokemonViewModel
    private lateinit var testView : View
-   private lateinit var wm : WindowManager
-   private lateinit var mParams : WindowManager.LayoutParams
 
 
 
@@ -37,16 +32,7 @@ class ListScreenFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-
-        testView = LayoutInflater.from(context).inflate(R.layout.overlay_screen, null)
-         mParams = WindowManager.LayoutParams(
-            400,
-            400,
-            WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
-            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
-            PixelFormat.TRANSLUCENT)
-        wm = context?.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+        testView = ( activity as  MainActivity).gettestView()
          // Inflate the layout for this fragment
         binding = FragmentListScreenBinding.inflate(inflater, container, false)
         val view = binding.root
@@ -69,10 +55,8 @@ class ListScreenFragment : Fragment() {
 
     }
     fun startService() {
-
-        wm.addView(testView, mParams)
-
-            viewModel.pokemons.observe(viewLifecycleOwner, {
+        testView.visibility = View.VISIBLE
+        viewModel.pokemons.observe(viewLifecycleOwner, {
                 testView.overlayname.text = it.pokemonDetailName
                 Picasso.with(context).load(it.pokemonDetailImgUrl?.url.toString()).resize(400, 400)
                     .centerInside().into(testView.viewFront)
@@ -81,9 +65,8 @@ class ListScreenFragment : Fragment() {
             })
         testView?.let {
             it.closeoverlay.setOnClickListener{
-             wm.removeView(testView)
-
-        } }
+                testView.visibility = View.GONE
+            } }
 
     }
 
